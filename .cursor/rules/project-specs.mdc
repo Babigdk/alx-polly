@@ -1,0 +1,57 @@
+---
+description: Project-specific AI instructions for the Polling App with QR Code Sharing.
+globs: 
+alwaysApply: true
+---
+
+## Project Structure
+
+- Use Next.js App Router (`/app`) for all routes.  
+- Polls live in `/app/polls/[id]/page.tsx` and related subfolders.  
+- Shared React components go in `/components/`.  
+- Use `/components/ui/` only for `shadcn/ui` components.  
+- Place Supabase setup and helper utilities in `/lib/`.  
+- Keep server actions (mutations like `createPoll`, `submitVote`) in `/lib/actions/`.  
+
+---
+
+## UI & Forms
+
+- Use **Tailwind CSS** for styling.  
+- Use **shadcn/ui** for form elements and dialogs.  
+- Forms must be built with **react-hook-form**.  
+  - Example: `CreatePollForm.tsx` uses `useForm()` and posts via a server action, not `fetch`.  
+- Keep components server-first:  
+  - Use **Server Components** by default.  
+  - Only add `"use client"` when interactivity is required (e.g., form input, vote button).  
+
+---
+
+## Supabase & Auth
+
+- Use Supabase for database and authentication.  
+- Supabase keys are always loaded from `process.env` (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_ANON_KEY`). **Never hardcode**.  
+- All database queries must go through the Supabase client in `/lib/supabaseClient.ts`.  
+- Use **Row Level Security (RLS)** in Supabase to restrict poll access to the owner.  
+- For mutations, wrap logic in server actions.  
+  - Example: `createPoll(formData)` should insert directly via Supabase.  
+
+---
+
+## Polls & Voting
+
+- Each poll has:  
+  - `id`, `user_id`, `question`, `options[]`, `created_at`.  
+- Votes are stored in a separate `votes` table with foreign keys.  
+- When scaffolding vote logic:  
+  - Ensure **one vote per user** (or per session for anonymous) using Supabase constraints + RLS.  
+- Always fetch poll data in a **Server Component**.  
+  - Do **not** fetch with `useEffect`.  
+
+---
+
+## QR Codes
+
+- Use **qrcode.react** to generate QR codes for poll links.  
+- Store QR generation in a utility component `/components/QRCode.tsx`.  
+- Poll share links must use `/polls/[id]`.  

@@ -39,6 +39,8 @@ export async function middleware(request: NextRequest) {
   // redirect them to the login page
   if (!user && (
     request.nextUrl.pathname.startsWith('/polls/create') ||
+    request.nextUrl.pathname.startsWith('/polls/') && request.nextUrl.pathname.includes('/edit') ||
+    request.nextUrl.pathname.startsWith('/dashboard') ||
     request.nextUrl.pathname.startsWith('/profile')
   )) {
     const url = request.nextUrl.clone()

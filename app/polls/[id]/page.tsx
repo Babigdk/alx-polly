@@ -1,98 +1,61 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { Users, Calendar, Share2 } from "lucide-react"
+import { Users, Calendar, Share2, CheckCircle, Edit, Trash2 } from "lucide-react"
+import { getPoll } from "@/lib/actions/polls"
+import { notFound } from "next/navigation"
+import PollVotingComponent from "@/components/PollVotingComponent"
+import PollActions from "@/components/PollActions"
 
-// Mock data for demonstration
-const mockPoll = {
-  id: "1",
-  title: "What's your favorite programming language?",
-  description: "A survey to understand developer preferences and help guide future technology decisions in our community.",
-  totalVotes: 156,
-  createdAt: "2024-01-15",
-  options: [
-    { id: "1", text: "JavaScript", votes: 45, percentage: 28.8 },
-    { id: "2", text: "Python", votes: 38, percentage: 24.4 },
-    { id: "3", text: "TypeScript", votes: 42, percentage: 26.9 },
-    { id: "4", text: "Rust", votes: 31, percentage: 19.9 }
-  ]
+interface PageProps {
+  params: { id: string }
+  searchParams: { updated?: string }
 }
 
-export default function PollDetailPage({ params }: { params: { id: string } }) {
+export default async function PollDetailPage({ params, searchParams }: PageProps) {
+  const poll = await getPoll(params.id)
+  
+  if (!poll) {
+    notFound()
+  }
+
+  const showUpdateMessage = searchParams.updated === 'true'
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
+      {showUpdateMessage && (
+        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <div className="flex items-center">
+            <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
+            <p className="text-green-800 font-medium">Poll updated successfully!</p>
+          </div>
+        </div>
+      )}
+
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{mockPoll.title}</h1>
-        <p className="text-gray-600 mb-4">{mockPoll.description}</p>
-        
-        <div className="flex items-center gap-6 text-sm text-gray-500">
-          <div className="flex items-center">
-            <Users className="w-4 h-4 mr-1" />
-            {mockPoll.totalVotes} votes
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold mb-2">{poll.question}</h1>
+            
+            <div className="flex items-center gap-6 text-sm text-gray-500">
+              <div className="flex items-center">
+                <Users className="w-4 h-4 mr-1" />
+                {poll.total_votes || 0} votes
+              </div>
+              <div className="flex items-center">
+                <Calendar className="w-4 h-4 mr-1" />
+                {new Date(poll.created_at).toLocaleDateString()}
+              </div>
+            </div>
           </div>
-          <div className="flex items-center">
-            <Calendar className="w-4 h-4 mr-1" />
-            {mockPoll.createdAt}
-          </div>
+          
+          {/* Show edit/delete buttons for poll owner */}
+          <PollActions poll={poll} />
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Vote</CardTitle>
-            <CardDescription>
-              Select your preferred option
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {mockPoll.options.map((option) => (
-              <div key={option.id} className="space-y-2">
-                <Button
-                  variant="outline"
-                  className="w-full justify-start h-auto p-4"
-                >
-                  <div className="text-left">
-                    <div className="font-medium">{option.text}</div>
-                  </div>
-                </Button>
-              </div>
-            ))}
-            <Button className="w-full mt-6">
-              Submit Vote
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Results</CardTitle>
-            <CardDescription>
-              Current voting results
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {mockPoll.options.map((option) => (
-              <div key={option.id} className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="font-medium">{option.text}</span>
-                  <span className="text-gray-500">
-                    {option.votes} votes ({option.percentage}%)
-                  </span>
-                </div>
-                <Progress value={option.percentage} className="h-2" />
-              </div>
-            ))}
-            
-            <div className="pt-4 border-t">
-              <Button variant="outline" className="w-full">
-                <Share2 className="w-4 h-4 mr-2" />
-                Share Poll
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <PollVotingComponent poll={poll} />
     </div>
   )
 }
+

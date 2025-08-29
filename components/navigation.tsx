@@ -32,6 +32,12 @@ export function Navigation() {
                 <BarChart3 className="w-4 h-4" />
                 <span>Polls</span>
               </Link>
+              {user && (
+                <Link href="/dashboard" className="flex items-center space-x-1 text-gray-600 hover:text-gray-900">
+                  <User className="w-4 h-4" />
+                  <span>Dashboard</span>
+                </Link>
+              )}
             </div>
           </div>
 
