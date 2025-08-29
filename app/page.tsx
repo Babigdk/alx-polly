@@ -1,103 +1,123 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { BarChart3, Plus, Users, TrendingUp } from "lucide-react"
+import Link from "next/link"
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="container mx-auto px-4 py-12">
+      {/* Hero Section */}
+      <div className="text-center mb-16">
+        <div className="flex justify-center mb-6">
+          <div className="bg-blue-100 p-4 rounded-full">
+            <BarChart3 className="w-12 h-12 text-blue-600" />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          Create and Share
+          <span className="text-blue-600"> Polls</span>
+        </h1>
+        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          Build engaging polls, gather insights, and make data-driven decisions with our modern polling platform.
+        </p>
+        <div className="flex gap-4 justify-center">
+          <Link href="/polls/create">
+            <Button size="lg" className="text-lg px-8">
+              <Plus className="w-5 h-5 mr-2" />
+              Create Poll
+            </Button>
+          </Link>
+          <Link href="/polls">
+            <Button variant="outline" size="lg" className="text-lg px-8">
+              Browse Polls
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <Card>
+          <CardHeader>
+            <div className="bg-green-100 p-3 rounded-full w-fit">
+              <Plus className="w-6 h-6 text-green-600" />
+            </div>
+            <CardTitle>Easy Creation</CardTitle>
+            <CardDescription>
+              Create polls in seconds with our intuitive interface
+            </CardDescription>
+          </CardHeader>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <div className="bg-purple-100 p-3 rounded-full w-fit">
+              <Users className="w-6 h-6 text-purple-600" />
+            </div>
+            <CardTitle>Community Driven</CardTitle>
+            <CardDescription>
+              Share polls with your community and gather real-time feedback
+            </CardDescription>
+          </CardHeader>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <div className="bg-orange-100 p-3 rounded-full w-fit">
+              <TrendingUp className="w-6 h-6 text-orange-600" />
+            </div>
+            <CardTitle>Real-time Results</CardTitle>
+            <CardDescription>
+              See results update in real-time as people vote
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+
+      {/* Recent Polls Preview */}
+      <div className="text-center">
+        <h2 className="text-3xl font-bold mb-8">Recent Polls</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <CardTitle className="text-lg">What's your favorite programming language?</CardTitle>
+              <CardDescription>156 votes • 2 days ago</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/polls/1">
+                <Button variant="outline" className="w-full">View Poll</Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <CardTitle className="text-lg">Best framework for web development?</CardTitle>
+              <CardDescription>89 votes • 5 days ago</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/polls/2">
+                <Button variant="outline" className="w-full">View Poll</Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <CardTitle className="text-lg">Preferred database for projects?</CardTitle>
+              <CardDescription>234 votes • 1 week ago</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/polls/3">
+                <Button variant="outline" className="w-full">View Poll</Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+        <Link href="/polls">
+          <Button variant="outline">View All Polls</Button>
+        </Link>
+      </div>
     </div>
-  );
+  )
 }
