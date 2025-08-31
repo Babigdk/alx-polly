@@ -81,7 +81,11 @@ export default function PollVotingComponent({ poll }: PollVotingComponentProps) 
             <div key={index} className="space-y-2">
               <Button
                 variant={selectedOption === index ? "default" : "outline"}
-                className="w-full justify-start h-auto p-4"
+                className={`w-full justify-start h-auto p-4 transition-all duration-200 ${
+                  selectedOption === index 
+                    ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white border-0 shadow-lg" 
+                    : "bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 border-0 shadow-sm hover:shadow-md"
+                }`}
                 onClick={() => setSelectedOption(index)}
                 disabled={hasVoted}
               >
@@ -100,7 +104,7 @@ export default function PollVotingComponent({ poll }: PollVotingComponentProps) 
           
           {!hasVoted ? (
             <Button 
-              className="w-full mt-6" 
+              className="w-full mt-6 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200" 
               onClick={handleVote}
               disabled={isVoting || selectedOption === null}
             >
@@ -137,7 +141,7 @@ export default function PollVotingComponent({ poll }: PollVotingComponentProps) 
           ))}
           
           <div className="pt-4 border-t">
-            <Button variant="outline" className="w-full" onClick={handleShare}>
+            <Button variant="outline" className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200" onClick={handleShare}>
               <Share2 className="w-4 h-4 mr-2" />
               Share Poll
             </Button>

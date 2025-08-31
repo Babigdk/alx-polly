@@ -48,14 +48,14 @@ export default function EditPollForm({ poll }: EditPollFormProps) {
     }
   })
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray<EditPollFormData>({
     control,
     name: "options"
   })
 
   const addOption = () => {
     if (fields.length < 10) {
-      append("")
+      append("" as any)
     }
   }
 
@@ -130,6 +130,7 @@ export default function EditPollForm({ poll }: EditPollFormProps) {
                   size="sm"
                   onClick={addOption}
                   disabled={fields.length >= 10}
+                  className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   <Plus className="w-4 h-4 mr-1" />
                   Add Option
@@ -149,6 +150,7 @@ export default function EditPollForm({ poll }: EditPollFormProps) {
                         variant="outline"
                         size="icon"
                         onClick={() => removeOption(index)}
+                        className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200"
                       >
                         <X className="w-4 h-4" />
                       </Button>
@@ -172,7 +174,7 @@ export default function EditPollForm({ poll }: EditPollFormProps) {
               <Button 
                 type="button" 
                 variant="outline" 
-                className="flex-1"
+                className="flex-1 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200"
                 onClick={() => reset()}
                 disabled={isSubmitting}
               >
@@ -180,7 +182,7 @@ export default function EditPollForm({ poll }: EditPollFormProps) {
               </Button>
               <Button 
                 type="submit" 
-                className="flex-1"
+                className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Updating..." : "Update Poll"}

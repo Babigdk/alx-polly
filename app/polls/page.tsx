@@ -37,7 +37,7 @@ export default async function PollsPage({ searchParams }: PageProps) {
           <p className="text-gray-600">Discover and participate in polls</p>
         </div>
         <Link href="/polls/create">
-          <Button>
+          <Button className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200">
             <Plus className="w-4 h-4 mr-2" />
             Create Poll
           </Button>
@@ -52,7 +52,7 @@ export default async function PollsPage({ searchParams }: PageProps) {
           <h3 className="text-lg font-semibold mb-2">No polls yet</h3>
           <p className="text-gray-600 mb-6">Be the first to create a poll!</p>
           <Link href="/polls/create">
-            <Button>
+            <Button className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200">
               <Plus className="w-4 h-4 mr-2" />
               Create Your First Poll
             </Button>
@@ -80,7 +80,7 @@ export default async function PollsPage({ searchParams }: PageProps) {
                   </div>
                   <div className="pt-2">
                     <Link href={`/polls/${poll.id}`}>
-                      <Button variant="outline" className="w-full">
+                      <Button variant="outline" className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200">
                         View Poll
                       </Button>
                     </Link>

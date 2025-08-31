@@ -36,7 +36,7 @@ export default function PollActions({ poll }: PollActionsProps) {
   return (
     <div className="flex gap-1">
       <Link href={`/polls/${poll.id}/edit`}>
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200">
           <Edit className="h-4 w-4" />
         </Button>
       </Link>
@@ -44,7 +44,7 @@ export default function PollActions({ poll }: PollActionsProps) {
       <Button 
         variant="ghost" 
         size="sm" 
-        className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+        className="h-8 w-8 p-0 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200"
         onClick={() => setShowDeleteConfirm(true)}
         disabled={isDeleting}
       >
@@ -64,6 +64,7 @@ export default function PollActions({ poll }: PollActionsProps) {
                 variant="outline" 
                 onClick={() => setShowDeleteConfirm(false)}
                 disabled={isDeleting}
+                className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Cancel
               </Button>
@@ -71,6 +72,7 @@ export default function PollActions({ poll }: PollActionsProps) {
                 variant="destructive" 
                 onClick={handleDelete}
                 disabled={isDeleting}
+                className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200"
               >
                 {isDeleting ? "Deleting..." : "Delete"}
               </Button>
