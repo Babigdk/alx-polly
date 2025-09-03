@@ -21,7 +21,7 @@ describe('PollActions', () => {
     render(<PollActions poll={poll} />)
 
     // edit button is a link with a button inside
-    const editButton = screen.getByRole('button', { name: '' })
+    const editButton = screen.getAllByRole('button')[0]
     expect(editButton).toBeInTheDocument()
 
     // delete icon button also present

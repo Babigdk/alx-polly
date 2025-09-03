@@ -13,6 +13,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, '.'),
     },
   },
+  css: {
+    // Avoid loading project PostCSS config during tests
+    postcss: { plugins: [] },
+  },
   esbuild: {
     jsx: 'automatic',
   },
